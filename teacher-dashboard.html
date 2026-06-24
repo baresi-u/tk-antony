@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head><title>Dashboard Guru</title></head>
-<body style="font-family:Arial;background:#f5f1e8;padding:30px">
+<head>
+<title>Dashboard Guru</title>
+<style>
+body{margin:0;font-family:Arial;background:#f5f1e8}
+.sidebar{position:fixed;width:240px;height:100vh;background:#1e2a4a;color:white;padding:25px}
+.sidebar a{display:block;color:white;text-decoration:none;padding:12px 0}
+.main{margin-left:280px;padding:35px}
+.card{background:white;padding:25px;border-radius:18px;margin-bottom:20px}
+input,textarea{width:400px;padding:10px;margin:8px 0}
+button{background:#1e2a4a;color:white;padding:12px;border:0;border-radius:10px}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+<h2>Guru</h2>
+<a href="teacher-dashboard.html">Dashboard</a>
+<a href="#buat">Buat Tugas</a>
+<a href="#siswa">Data Siswa</a>
+<a href="#nilai">Nilai</a>
+<a href="login.html">Logout</a>
+</div>
+
+<div class="main">
 <h1>Dashboard Guru</h1>
-<h2>Buat Tugas</h2>
-<input placeholder="Judul Tugas"><br><br>
-<textarea placeholder="Deskripsi"></textarea><br><br>
-<input type="file"><br><br>
+
+<div class="card">
+<h2>📊 Statistik</h2>
+<p>Total Siswa: 30</p>
+<p>Tugas Aktif: 5</p>
+</div>
+
+<div class="card" id="buat">
+<h2>📚 Buat Tugas</h2>
+
+<input placeholder="Judul Tugas"><br>
+<textarea placeholder="Deskripsi"></textarea><br>
+<input type="file"><br>
+
 <button>Kirim Tugas</button>
+</div>
+
+</div>
 </body>
 </html>

@@ -3,50 +3,55 @@
 <head>
 <title>Dashboard Siswa</title>
 <style>
-body{font-family:Arial;margin:0;background:#f5f1e8}
-.side{position:fixed;width:230px;height:100%;background:#1e2a4a;color:white;padding:25px}
-.main{margin-left:280px;padding:30px}
-.card{background:white;padding:20px;border-radius:15px;margin:15px 0}
-button{background:#1e2a4a;color:white;padding:10px;border:0;border-radius:8px}
+body{margin:0;font-family:Arial;background:#f5f1e8}
+.sidebar{position:fixed;width:240px;height:100vh;background:#1e2a4a;color:white;padding:25px}
+.sidebar a{display:block;color:white;text-decoration:none;padding:12px 0}
+.main{margin-left:280px;padding:35px}
+.card{background:white;padding:25px;border-radius:18px;margin-bottom:20px;box-shadow:0 5px 15px #0001}
+button{background:#1e2a4a;color:white;padding:10px 20px;border:0;border-radius:10px}
 </style>
 </head>
 <body>
-<div class="side">
-<h2>KB TK Mary Anthony</h2>
-<p>Dashboard</p>
-<p>Absensi</p>
-<p>Tugas</p>
-<p>Upload</p>
-<p>Event</p>
-<p>Berita</p>
-<p onclick="location.href='login.html'">Logout</p>
+<div class="sidebar">
+<h2>Siswa</h2>
+<a href="student-dashboard.html">Dashboard</a>
+<a href="#absensi">Absensi</a>
+<a href="#tugas">Tugas Saya</a>
+<a href="#upload">Upload Tugas</a>
+<a href="#event">Event</a>
+<a href="#berita">Berita</a>
+<a href="login.html">Logout</a>
 </div>
 
 <div class="main">
-<h1>Dashboard Siswa</h1>
+<h1>Selamat Datang Siswa</h1>
 
-<div class="card">
-<h2>Selamat Datang Siswa</h2>
+<div class="card" id="absensi">
+<h2>📅 Absensi</h2>
 <p>Kehadiran: 95%</p>
 </div>
 
-<div class="card">
-<h2>Tugas Saya</h2>
-<p>Tugas menggambar keluarga</p>
-<input type="file">
-<br><br>
+<div class="card" id="tugas">
+<h2>📚 Tugas Aktif</h2>
+<p>Ada 3 tugas terbaru dari guru.</p>
+</div>
+
+<div class="card" id="upload">
+<h2>📤 Upload Jawaban</h2>
+<input type="file"><br><br>
 <button>Kirim Tugas</button>
 </div>
 
-<div class="card">
-<h2>Event Sekolah</h2>
-<p>Pentas Seni Sekolah</p>
+<div class="card" id="event">
+<h2>🎉 Event Sekolah</h2>
+<p>Pentas seni dan kegiatan sekolah.</p>
 </div>
 
-<div class="card">
-<h2>Berita Sekolah</h2>
-<p>Informasi terbaru sekolah</p>
+<div class="card" id="berita">
+<h2>📰 Berita Sekolah</h2>
+<p>Informasi terbaru sekolah.</p>
 </div>
+
 </div>
 </body>
 </html>
