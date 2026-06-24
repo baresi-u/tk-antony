@@ -290,10 +290,6 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         Pengumuman
       </button>
-      <button class="nav-item" data-target="tugas">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        Tugas Masuk
-      </button>
     </nav>
     <div class="sidebar-footer">
       <a href="index.html" class="side-link">
@@ -456,30 +452,6 @@
           <button class="filter-tab" data-pfilter="Info">Info</button>
         </div>
         <div class="pengumuman-grid" id="pengumumanGrid"></div>
-      </section>
-
-      <!-- TUGAS MASUK -->
-      <section class="panel" id="sec-tugas">
-        <div class="toolbar">
-          <h2>Tugas Masuk</h2>
-          <div class="toolbar-actions">
-            <div class="search-box">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" id="searchTugas" placeholder="Cari judul tugas...">
-            </div>
-          </div>
-        </div>
-        <div class="filter-tabs">
-          <button class="filter-tab active" data-atfilter="Semua">Semua</button>
-          <button class="filter-tab" data-atfilter="Aktif">Aktif</button>
-          <button class="filter-tab" data-atfilter="Selesai">Selesai</button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Judul Tugas</th><th>Guru</th><th>Kelas</th><th>Deadline</th><th>Status</th><th>Aksi</th></tr></thead>
-            <tbody id="tableTugasAdmin"></tbody>
-          </table>
-        </div>
       </section>
 
     </main>
@@ -652,12 +624,6 @@ let pengumumanData = [
   {id:3, judul:'Kegiatan Pentas Seni Akhir Tahun', konten:'KB-TK Mary Anthony akan menyelenggarakan Pentas Seni Akhir Tahun pada 28 Juni 2026. Seluruh orang tua/wali murid diundang untuk hadir dan menyaksikan penampilan putra-putri terbaik mereka.', kategori:'Umum', target:'Semua', tgl:'2026-06-10', dibaca:true},
 ];
 let nextId = {siswa:9, guru:6, pendaftaran:7, berita:6, pengumuman:4};
-let tugasAdminData = [
-  {id:1, judul:'Mewarnai Gambar Hewan', deskripsi:'Warnai gambar hewan menggunakan minimal 5 warna.', kelas:'TK B1', deadline:'2026-06-28', status:'Aktif', guru:'Ani Wulandari, S.Pd'},
-  {id:2, judul:'Mengenal Angka 1–10', deskripsi:'Tulis angka 1 sampai 10 di buku tugas masing-masing.', kelas:'TK B1', deadline:'2026-06-25', status:'Aktif', guru:'Ani Wulandari, S.Pd'},
-  {id:3, judul:'Menghafal Doa Sehari-hari', deskripsi:'Hafal doa makan dan doa tidur untuk disetorkan minggu depan.', kelas:'TK A1', deadline:'2026-06-20', status:'Selesai', guru:'Siti Rahmawati, S.Pd'},
-];
-let tugasAdminFilter = 'Semua';
 let pengumumanFilter = 'Semua';
 let pendaftaranFilter = 'Semua';
 
@@ -689,7 +655,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
 /* ============ Navigation ============ */
 const navItems = document.querySelectorAll('.nav-item');
 const panels = document.querySelectorAll('.panel');
-const titles = {dashboard:'Dashboard', siswa:'Data Siswa', guru:'Data Guru', pendaftaran:'Pendaftaran Siswa Baru', berita:'Berita & Event', pengumuman:'Pengumuman', tugas:'Tugas Masuk'};
+const titles = {dashboard:'Dashboard', siswa:'Data Siswa', guru:'Data Guru', pendaftaran:'Pendaftaran Siswa Baru', berita:'Berita & Event', pengumuman:'Pengumuman'};
 navItems.forEach(btn=>{
   btn.addEventListener('click', ()=>{
     navItems.forEach(b=>b.classList.remove('active'));
@@ -802,43 +768,8 @@ function renderBerita(){
 }
 
 function renderAll(){
-  renderDashboard(); renderSiswa(); renderGuru(); renderPendaftaran(); renderBerita(); renderPengumuman(); renderNotifDropdown(); renderTugasAdmin();
+  renderDashboard(); renderSiswa(); renderGuru(); renderPendaftaran(); renderBerita(); renderPengumuman(); renderNotifDropdown();
 }
-
-/* ============ Tugas Admin ============ */
-function renderTugasAdmin(){
-  const q = document.getElementById('searchTugas').value.trim().toLowerCase();
-  let filtered = tugasAdminData.filter(t=> t.judul.toLowerCase().includes(q) || t.guru.toLowerCase().includes(q));
-  if(tugasAdminFilter !== 'Semua') filtered = filtered.filter(t=>t.status===tugasAdminFilter);
-  filtered = [...filtered].reverse();
-  const tb = document.getElementById('tableTugasAdmin');
-  tb.innerHTML = filtered.map(t=>`
-    <tr>
-      <td class="cell-strong">${t.judul}<br><span style="font-size:12px;color:var(--muted);font-weight:400;">${t.deskripsi||''}</span></td>
-      <td>${t.guru}</td>
-      <td>${t.kelas}</td>
-      <td class="cell-muted">${fmtDate(t.deadline)}</td>
-      <td><span class="badge ${t.status==='Aktif'?'success':'info'}">${t.status}</span></td>
-      <td><div class="row-actions">
-        <button class="icon-btn del" onclick="deleteTugasAdmin(${t.id})" aria-label="Hapus"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7h14"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M7 7l1 13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-13"/></svg></button>
-      </div></td>
-    </tr>`).join('') || `<tr class="empty-row"><td colspan="6">Belum ada tugas masuk.</td></tr>`;
-}
-function deleteTugasAdmin(id){
-  const t = tugasAdminData.find(x=>x.id===id);
-  if(!confirm(`Hapus tugas "${t.judul}"?`)) return;
-  tugasAdminData = tugasAdminData.filter(x=>x.id!==id);
-  renderTugasAdmin(); toast('Tugas dihapus.');
-}
-document.getElementById('searchTugas').addEventListener('input', renderTugasAdmin);
-document.querySelectorAll('[data-atfilter]').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('[data-atfilter]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    tugasAdminFilter = btn.dataset.atfilter;
-    renderTugasAdmin();
-  });
-});
 
 /* ============ Pengumuman ============ */
 function pengumumanCardClass(k){ return k==='Penting'?'penting':k==='Info'?'info':''; }

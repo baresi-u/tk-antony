@@ -247,10 +247,6 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         Pengumuman
       </button>
-      <button class="nav-item" data-target="tugas">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        Tugas
-      </button>
     </nav>
     <div class="sidebar-footer">
       <a href="index.html" class="side-link">
@@ -382,25 +378,6 @@
         <div class="pengumuman-grid" id="pengumumanGrid"></div>
       </section>
 
-      <!-- TUGAS -->
-      <section class="panel" id="sec-tugas">
-        <div class="toolbar">
-          <h2>Tugas</h2>
-          <button class="btn-primary" id="btnAddTugas">+ Buat Tugas</button>
-        </div>
-        <div class="filter-tabs">
-          <button class="filter-tab active" data-tfilter="Semua">Semua</button>
-          <button class="filter-tab" data-tfilter="Aktif">Aktif</button>
-          <button class="filter-tab" data-tfilter="Selesai">Selesai</button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Judul Tugas</th><th>Kelas</th><th>Deadline</th><th>Status</th><th>Aksi</th></tr></thead>
-            <tbody id="tableTugas"></tbody>
-          </table>
-        </div>
-      </section>
-
     </main>
   </div>
 </div>
@@ -439,33 +416,6 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="modalTugasOverlay">
-  <div class="modal-box" style="display:block;max-width:460px;">
-    <div class="modal-head">
-      <h3 id="modalTugasTitle">Buat Tugas</h3>
-      <button class="modal-close" id="closeTugasModal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    </div>
-    <form id="formTugas">
-      <input type="hidden" id="tugasId">
-      <div class="field"><label>Judul Tugas</label><input type="text" id="tugasJudul" placeholder="contoh: Mewarnai Gambar Hewan" required></div>
-      <div class="field"><label>Deskripsi</label><textarea id="tugasDeskripsi" placeholder="Jelaskan tugas secara singkat..." style="min-height:80px;"></textarea></div>
-      <div class="field"><label>Kelas</label>
-        <select id="tugasKelas">
-          <option>TK A1</option><option>TK A2</option><option>TK B1</option><option>TK B2</option><option>Semua Kelas</option>
-        </select>
-      </div>
-      <div class="field"><label>Deadline</label><input type="date" id="tugasDeadline" required></div>
-      <div class="field"><label>Status</label>
-        <select id="tugasStatus"><option value="Aktif">Aktif</option><option value="Selesai">Selesai</option></select>
-      </div>
-      <div class="modal-foot">
-        <button type="button" class="btn-secondary" id="btnBatalTugas">Batal</button>
-        <button type="submit" class="btn-primary">Simpan Tugas</button>
-      </div>
-    </form>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
@@ -494,12 +444,6 @@ let pengumumanData = [
 ];
 let nextPengumumanId = 4;
 let pengumumanFilter = 'Semua';
-let tugasData = [
-  {id:1, judul:'Mewarnai Gambar Hewan', deskripsi:'Warnai gambar hewan yang dibagikan, gunakan minimal 5 warna.', kelas:'TK B1', deadline:'2026-06-28', status:'Aktif', guru:'Ani Wulandari, S.Pd'},
-  {id:2, judul:'Mengenal Angka 1–10', deskripsi:'Tulis angka 1 sampai 10 di buku tugas masing-masing.', kelas:'TK B1', deadline:'2026-06-25', status:'Aktif', guru:'Ani Wulandari, S.Pd'},
-];
-let nextTugasId = 3;
-let tugasFilter = 'Semua';
 
 /* ============ Helpers ============ */
 function toast(msg){
@@ -520,7 +464,7 @@ function todayStr(){
 /* ============ Navigation ============ */
 const navItems = document.querySelectorAll('.nav-item');
 const panels = document.querySelectorAll('.panel');
-const titles = {dashboard:'Dashboard', absensi:'Absensi Siswa', siswa:'Data Siswa Kelas TK B1', aktivitas:'Catatan Aktivitas Harian', pengumuman:'Pengumuman', tugas:'Tugas'};
+const titles = {dashboard:'Dashboard', absensi:'Absensi Siswa', siswa:'Data Siswa Kelas TK B1', aktivitas:'Catatan Aktivitas Harian', pengumuman:'Pengumuman'};
 navItems.forEach(btn=>{
   btn.addEventListener('click', ()=>{
     navItems.forEach(b=>b.classList.remove('active'));
@@ -790,78 +734,6 @@ document.getElementById('btnTandaiSemua').addEventListener('click', ()=>{
   toast('Semua pengumuman ditandai dibaca.');
 });
 
-/* ============ Tugas ============ */
-function renderTugas(){
-  let filtered = [...tugasData];
-  if(tugasFilter !== 'Semua') filtered = filtered.filter(t=>t.status===tugasFilter);
-  filtered = filtered.reverse();
-  const tb = document.getElementById('tableTugas');
-  tb.innerHTML = filtered.map(t=>`
-    <tr>
-      <td class="cell-strong">${t.judul}<br><span style="font-size:12px;color:var(--muted);font-weight:400;">${t.deskripsi||''}</span></td>
-      <td>${t.kelas}</td>
-      <td class="cell-muted">${fmtDate(t.deadline)}</td>
-      <td><span class="badge ${t.status==='Aktif'?'success':'info'}">${t.status}</span></td>
-      <td><div class="row-actions">
-        <button class="icon-btn" onclick="editTugas(${t.id})" aria-label="Edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17.5V20h2.5l11-11-2.5-2.5-11 11Z"/><path d="M14 5l2.5 2.5"/></svg></button>
-        <button class="icon-btn del" onclick="deleteTugas(${t.id})" aria-label="Hapus"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7h14"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M7 7l1 13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-13"/></svg></button>
-      </div></td>
-    </tr>`).join('') || `<tr class="empty-row"><td colspan="5">Belum ada tugas.</td></tr>`;
-}
-function editTugas(id){
-  const t = tugasData.find(x=>x.id===id);
-  document.getElementById('tugasId').value=t.id;
-  document.getElementById('tugasJudul').value=t.judul;
-  document.getElementById('tugasDeskripsi').value=t.deskripsi||'';
-  document.getElementById('tugasKelas').value=t.kelas;
-  document.getElementById('tugasDeadline').value=t.deadline;
-  document.getElementById('tugasStatus').value=t.status;
-  document.getElementById('modalTugasTitle').textContent='Edit Tugas';
-  document.getElementById('modalTugasOverlay').classList.add('show');
-}
-function deleteTugas(id){
-  if(!confirm('Hapus tugas ini?')) return;
-  tugasData = tugasData.filter(x=>x.id!==id);
-  renderTugas(); toast('Tugas dihapus.');
-}
-document.getElementById('btnAddTugas').addEventListener('click',()=>{
-  document.getElementById('formTugas').reset();
-  document.getElementById('tugasId').value='';
-  document.getElementById('tugasDeadline').value=todayStr();
-  document.getElementById('modalTugasTitle').textContent='Buat Tugas';
-  document.getElementById('modalTugasOverlay').classList.add('show');
-});
-function closeTugasModal(){
-  document.getElementById('modalTugasOverlay').classList.remove('show');
-  document.getElementById('formTugas').reset();
-}
-document.getElementById('closeTugasModal').addEventListener('click', closeTugasModal);
-document.getElementById('btnBatalTugas').addEventListener('click', closeTugasModal);
-document.getElementById('modalTugasOverlay').addEventListener('click',e=>{ if(e.target.id==='modalTugasOverlay') closeTugasModal(); });
-document.getElementById('formTugas').addEventListener('submit',e=>{
-  e.preventDefault();
-  const id = document.getElementById('tugasId').value;
-  const payload = {
-    judul: document.getElementById('tugasJudul').value.trim(),
-    deskripsi: document.getElementById('tugasDeskripsi').value.trim(),
-    kelas: document.getElementById('tugasKelas').value,
-    deadline: document.getElementById('tugasDeadline').value,
-    status: document.getElementById('tugasStatus').value,
-    guru: 'Ani Wulandari, S.Pd',
-  };
-  if(id){ Object.assign(tugasData.find(x=>x.id==id), payload); toast('Tugas diperbarui.'); }
-  else { tugasData.push({id:nextTugasId++, ...payload}); toast('Tugas berhasil disimpan!'); }
-  closeTugasModal(); renderTugas();
-});
-document.querySelectorAll('[data-tfilter]').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('[data-tfilter]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    tugasFilter = btn.dataset.tfilter;
-    renderTugas();
-  });
-});
-
 /* ============ Init ============ */
 renderAbsensi();
 renderSiswaTable();
@@ -869,7 +741,6 @@ renderActivityList();
 renderDashboard();
 renderPengumuman();
 renderNotifDropdown();
-renderTugas();
 </script>
 </body>
 </html>
