@@ -1,4 +1,52 @@
-<!DOCTYPE html><html><head><title>Dashboard Siswa</title><style>
-body{margin:0;font-family:Arial;background:#f5f5f5}.side{position:fixed;width:220px;height:100%;background:#1e2a4a;color:white;padding:20px}.main{margin-left:260px;padding:30px}.card{background:white;padding:20px;border-radius:15px;margin:15px 0;box-shadow:0 3px 10px #0001}</style></head>
-<body><div class="side"><h2>Siswa</h2><p>Dashboard</p><p>Absensi</p><p>Tugas Saya</p><p>Upload Tugas</p><p>Event</p><p>Berita</p><p>Logout</p></div>
-<div class="main"><h1>Selamat Datang Siswa</h1><div class="card">📅 Kehadiran<br><b>95%</b></div><div class="card">📚 Tugas Aktif<br>3 tugas</div><div class="card">📤 Upload Jawaban<br><input type=file><button>Kirim</button></div><div class="card">📰 Berita Sekolah<br>Informasi terbaru sekolah</div></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard Siswa</title>
+<style>
+body{font-family:Arial;margin:0;background:#f5f1e8}
+.side{position:fixed;width:230px;height:100%;background:#1e2a4a;color:white;padding:25px}
+.main{margin-left:280px;padding:30px}
+.card{background:white;padding:20px;border-radius:15px;margin:15px 0}
+button{background:#1e2a4a;color:white;padding:10px;border:0;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="side">
+<h2>KB TK Mary Anthony</h2>
+<p>Dashboard</p>
+<p>Absensi</p>
+<p>Tugas</p>
+<p>Upload</p>
+<p>Event</p>
+<p>Berita</p>
+<p onclick="location.href='login.html'">Logout</p>
+</div>
+
+<div class="main">
+<h1>Dashboard Siswa</h1>
+
+<div class="card">
+<h2>Selamat Datang Siswa</h2>
+<p>Kehadiran: 95%</p>
+</div>
+
+<div class="card">
+<h2>Tugas Saya</h2>
+<p>Tugas menggambar keluarga</p>
+<input type="file">
+<br><br>
+<button>Kirim Tugas</button>
+</div>
+
+<div class="card">
+<h2>Event Sekolah</h2>
+<p>Pentas Seni Sekolah</p>
+</div>
+
+<div class="card">
+<h2>Berita Sekolah</h2>
+<p>Informasi terbaru sekolah</p>
+</div>
+</div>
+</body>
+</html>
