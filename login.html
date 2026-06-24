@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Login - KB TK Mary Anthony</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login Portal</title>
 <style>
-body{font-family:Nunito,Arial;background:#faf6ed;display:flex;align-items:center;justify-content:center;height:100vh}
-.box{background:white;padding:35px;border-radius:20px;width:350px;box-shadow:0 10px 30px #0002}
-input,button{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid #ddd}
-button{background:#1e2a4a;color:white}
+body{font-family:Arial;background:#faf6ed;height:100vh;display:flex;align-items:center;justify-content:center}
+.box{background:white;padding:35px;border-radius:20px;width:350px;box-shadow:0 5px 20px #0002}
+button{width:100%;padding:12px;margin:8px 0;border:0;border-radius:10px;background:#1e2a4a;color:white}
 </style>
 </head>
 <body>
 <div class="box">
-<h2>Login Siswa</h2>
-<input placeholder="NIS / Username">
-<input type="password" placeholder="Password">
-<button onclick="location.href='student-dashboard.html'">Masuk Sebagai Siswa</button>
-<hr>
-<p>Login Admin/Guru tetap melalui dashboard utama.</p>
-<a href="index.html">Kembali ke halaman awal</a>
+<h2>Portal Login</h2>
+<p>Pilih akun:</p>
+<button onclick="location.href='student-dashboard.html'">Login Siswa</button>
+<button onclick="location.href='teacher-dashboard.html'">Login Guru</button>
+<button onclick="location.href='admin-dashboard.html'">Login Admin</button>
+<br><a href="index.html">Kembali</a>
 </div>
 </body>
 </html>
