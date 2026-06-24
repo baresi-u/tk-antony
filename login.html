@@ -1,81 +1,22 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Login Portal KB TK Mary Anthony</title>
-
-<style>
-body{
-font-family:Arial;
-background:#faf6ed;
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.box{
-background:white;
-padding:35px;
-width:350px;
-border-radius:20px;
-box-shadow:0 5px 20px #0002;
-}
-
-button{
-width:100%;
-padding:13px;
-margin:8px 0;
-border:none;
-border-radius:10px;
-background:#1e2a4a;
-color:white;
-cursor:pointer;
-}
-
-button:hover{
-opacity:.8;
-}
-</style>
-
-</head>
-
-<body>
-
-
-<div class="box">
-
-<h2>Login Portal</h2>
-
-<p>Pilih akun anda:</p>
-
-
-<button onclick="location.href='student-dashboard.html'">
-Login Siswa
-</button>
-
-
-<button onclick="location.href='teacher-dashboard.html'">
-Login Guru
-</button>
-
-
-<button onclick="location.href='admin-dashboard.html'">
-Login Admin
-</button>
-
-
-<hr>
-
-<a href="index.html">
-Kembali ke halaman utama
-</a>
-
-
+<html><head><title>Login Portal</title><style>
+body{font-family:Arial;background:#f6f1e8;height:100vh;display:flex;align-items:center;justify-content:center}
+.box{background:#fff;padding:35px;border-radius:20px;width:360px;box-shadow:0 10px 30px #0002}
+input,button{width:100%;padding:12px;margin:8px 0;border-radius:10px}
+button{background:#1e2a4a;color:#fff;border:0}
+</style></head><body><div class="box">
+<h2>KB TK Mary Anthony</h2><h3>Login</h3>
+<input placeholder="Email">
+<input type="password" placeholder="Password">
+<button onclick="login()">Masuk</button>
+<p style="font-size:13px">Demo akun:<br>admin@tk.com<br>guru@tk.com<br>siswa@tk.com</p>
 </div>
-
-
-</body>
-</html>
+<script>
+function login(){
+let e=document.querySelectorAll('input')[0].value;
+if(e.includes('admin'))location='admin-dashboard.html';
+else if(e.includes('guru'))location='teacher-dashboard.html';
+else if(e.includes('siswa'))location='student-dashboard.html';
+else alert('Email tidak terdaftar');
+}
+</script></body></html>
